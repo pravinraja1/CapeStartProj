@@ -1,0 +1,51 @@
+<form class="border border-light p-5" [formGroup]="updateBookForm">
+    <p class="h4 mb-4">Update Library</p>
+    <hr>
+
+    <img *ngIf="LibraryData" class="img-lg rounded-circle" src="{{baseUrl}}{{LibraryData.book_image}}" style="width:200px;height:200px;">
+    <br>
+    <div class="row">
+      <div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Book Name</mat-label>
+        <input matInput placeholder="Enter Book Name" formControlName="book_name" required>
+        <mat-error *ngIf="updateBookForm.controls['book_name'].invalid">Book Name is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Book Description</mat-label>
+          <textarea matInput formControlName="book_desc" required></textarea>
+          <mat-error *ngIf="updateBookForm.controls['book_desc'].invalid">Book Description is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Book Author</mat-label>
+          <input matInput placeholder="Enter Book Author" formControlName="book_author" required>
+          <mat-error *ngIf="updateBookForm.controls['book_author'].invalid">Book Author is required</mat-error>
+        </mat-form-field>
+    </div>    
+    <div class="col-lg-3 col-md-12">
+        <mat-form-field appearance="outline">
+          <mat-label>publisher</mat-label>
+          <input matInput placeholder="Enter Book Author" formControlName="publisher_name" required>
+          <mat-error *ngIf="updateBookForm.controls['publisher_name'].invalid">Publisher Author is required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Book Image</mat-label>
+          <ngx-mat-file-input formControlName="book_image" id="image" placeholder="Upload Book Image" accept="image/*"></ngx-mat-file-input>
+          <mat-icon matSuffix>folder</mat-icon>
+            <mat-error *ngIf="updateBookForm.controls['book_image'].invalid">Book Image is required</mat-error>
+        </mat-form-field>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-12">
+        <button type="submit" class="btn btn-success ml-3" (click)="updateLibrary()">Update</button>
+        <button mat-button mat-dialog-close>Cancel</button>
+      </div>
+    </div>
+  </form>

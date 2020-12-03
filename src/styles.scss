@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.card-size{
+	width: 300px;
+	height: 400px;
+}
+
+.card-image-view{
+	width: 200px;
+	height: 120px;
+	margin: auto;
+	margin-top: 10px;
+}
+
+.card-image{
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.card-body-size{
+	width: 200px;
+	height: 180px;
+	margin-left:5px;
+	margin-right: auto;
+}
+
+/* Container needed to position the button. Adjust the width as needed */
+.card-container {
+  position: relative;
+}
+
+/* Make the image responsive */
+.card-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.card-container .hover-btn {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: white;
+  color: white;
+  font-size: 14px;
+  padding: 11px 22px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  opacity: 0;
+  outline:none;
+}
+
+.card-container:hover .hover-btn {
+  background-color: #1a75ff;
+  opacity: 1;
+}
+
+.hover-btn:hover {
+  color:lightgrey;
+}
+
+.table-container{
+  width:90%;
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+
+.table-filter{
+  width: 100%
+}
+
+.field-size{
+  width: 90%
+}
+
+.form-container{
+  margin: 10px 0px 10px 10px;
+  position: relative;
+}
+
+
+.my-body{
+  font-family: Comic Sans MS, cursive, sans-serif;
+}
+
+.head-style{
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-snackbar{
+   color: red;
+}
+
+
+.delete-button{
+  color: darkred;
+}
+
+.delete-button:hover{
+  color: red;
+}
+
+.edit-button .shop-button{
+  color: darkblue;
+}
+
+.edit-button:hover{
+  color: blue;
+}
+.shop-button {
+  color: darkblue;
+}
+
+.shop-button:hover {
+  color: blue;
+}

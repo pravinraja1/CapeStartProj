@@ -1,0 +1,78 @@
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="My Books">
+   	<form class="border border-light p-5">
+      <p class="h4 mb-4">View Books</p>
+      <hr />
+
+	<mat-form-field class="table-filter">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilterForLibrary($event)"
+          placeholder="Ex. ium"
+          #input
+        />
+      </mat-form-field>
+      <div class="container mat-elevation-z8">
+        <table
+          mat-table
+          matSort
+          #sortForLibrary="matSort"
+          [dataSource]="LibraryList"
+          width="100%"
+        >
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{
+                this.paginatorForLibrary.pageIndex == 0 ? i + 1: 1 + i + this.paginatorForLibrary.pageIndex * this.paginatorForLibrary.pageSize
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_name" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_desc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_desc }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_author">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_author }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_image">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Image</th>
+            <td mat-cell *matCellDef="let element"><img class="img-lg rounded-circle" lazyLoad="{{baseUrl}}{{element.book_image}}" style="width:200px;height:200px;"></td>
+          </ng-container> 
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="goToLend(element.id)">
+                <mat-icon class="delete-button">delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsForLibrary;  sticky: true;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsForLibrary"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No data matching the filter "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+        <mat-paginator
+          #paginatorForLibrary="matPaginator"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+      </div>
+  </form>
+  </mat-tab>
+</mat-tab-group>

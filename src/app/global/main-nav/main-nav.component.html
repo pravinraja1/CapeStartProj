@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><a>Library Service</a></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="/books" *ngIf="appAccess=='admin'">Book Master</a>
+      <a mat-list-item routerLink="/mybooks">My Books</a>
+      <a mat-list-item routerLink="/library">Library Books</a>
+      <a mat-list-item (click)="logout()" href="#">Sign Out</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="top-nav">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <links>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" *ngIf="loginUserName == null">
+            <a class="my-nav navbar-brand" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="loginUserName != null">
+            <!-- <a class="my-nav navbar-brand" (click)="logout()" href="#">Log Out</a> -->
+          </li>
+        </ul>
+      </links>
+    </mat-toolbar>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

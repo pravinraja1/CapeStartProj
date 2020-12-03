@@ -1,0 +1,31 @@
+<br>
+<mat-card-title >
+  <div class="title">
+    Welcome to Library
+  </div>
+</mat-card-title>
+<mat-card>
+  <div class ="container">
+  <ngx-charts-pie-grid
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="single"
+  (select)="onSelect($event)">
+  </ngx-charts-pie-grid>
+    <ngx-charts-bar-vertical
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="single"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
+  </div>
+</mat-card>
+

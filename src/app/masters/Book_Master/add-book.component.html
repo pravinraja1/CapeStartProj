@@ -1,0 +1,174 @@
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Master">
+	  <form class="border border-light p-5" [formGroup]="masterForm">
+	  <p class="h4 mb-4">Add Master</p>
+	  <hr>
+
+	  <div class="row">
+	  	<div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option value="Author">Author</mat-option>
+          <mat-option value="Publisher">Publisher</mat-option>
+        </mat-select>
+        <mat-error *ngIf="masterForm.controls['category'].invalid">Category is required</mat-error>
+      </mat-form-field>
+		</div>
+		<div class="col-lg-3 col-md-12">
+		  	<mat-form-field appearance="outline">
+			    <mat-label>Name</mat-label>
+			    <input matInput formControlName="name" required>
+			    <mat-error *ngIf="masterForm.controls['name'].invalid">Name is required</mat-error>
+		    </mat-form-field>
+		</div>
+	  </div>
+	  <div class="row alin">
+	  	<div class="col-lg-3 col-md-12">
+	  		<button type="submit" class="btn btn-success ml-3" (click)="addMaster()">Add</button>
+	  		<button type="reset" class="btn btn-default ml-3">Cancel</button>
+	  	</div>
+	  </div>
+	</form>
+  </mat-tab>
+
+  <mat-tab label="Add">
+	  <form class="border border-light p-5" [formGroup]="addBookForm">
+	  <p class="h4 mb-4">Add Library</p>
+	  <hr>
+
+	  <div class="row">
+	  <div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+		    <mat-label>Book Name</mat-label>
+		    <input matInput placeholder="Enter BOok Name" formControlName="book_name" required>
+		    <mat-error *ngIf="addBookForm.controls['book_name'].invalid">Book Name is required</mat-error>
+		  </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Author Name</mat-label>
+        <mat-select formControlName="book_author" required>
+          <mat-option *ngFor = "let author of authorList" value="{{author.author_name}}">{{author.author_name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="addBookForm.controls['book_author'].invalid">Book Author is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Publisher</mat-label>
+        <mat-select formControlName="publisher_name" required>
+          <mat-option *ngFor = "let publisher of publisherList" value="{{publisher.publisher_name}}">{{publisher.publisher_name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="addBookForm.controls['publisher_name'].invalid">Book Publisher is required</mat-error>
+      </mat-form-field>
+		</div>
+		<div class="col-lg-3 col-md-12">
+		  	<mat-form-field appearance="outline">
+			    <mat-label>Book Description</mat-label>
+			    <textarea matInput formControlName="book_desc" required></textarea>
+			    <mat-error *ngIf="addBookForm.controls['book_desc'].invalid">Book Description is required</mat-error>
+		    </mat-form-field>
+		</div>
+		<div class="col-lg-3 col-md-12">
+			<mat-form-field appearance="outline">
+				<mat-label>Book Image</mat-label>
+			    <ngx-mat-file-input formControlName="book_image" id="image" placeholder="Upload Book Image" accept="image/*"></ngx-mat-file-input>
+			    <mat-icon matSuffix>folder</mat-icon>
+      			<mat-error *ngIf="addBookForm.controls['book_image'].invalid">Book Image is required</mat-error>
+    		</mat-form-field>
+		</div>
+	  </div>
+	  <div class="row">
+	  	<div class="col-lg-3 col-md-12">
+	  		<button type="submit" class="btn btn-success ml-3" (click)="addLibrary()">Add</button>
+	  		<button type="reset" class="btn btn-default ml-3">Cancel</button>
+	  	</div>
+	  </div>
+	</form>
+  </mat-tab>
+
+  <mat-tab label="View">
+   	<form class="border border-light p-5">
+      <p class="h4 mb-4">View Library</p>
+      <hr />
+
+	<mat-form-field class="table-filter">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilterForLibrary($event)"
+          placeholder="Ex. ium"
+          #input
+        />
+      </mat-form-field>
+      <div class="container mat-elevation-z8" style="overflow-x: scroll;">
+        <table
+          mat-table
+          matSort
+          #sortForLibrary="matSort"
+          [dataSource]="LibraryList"
+          width="100%"
+        >
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{
+                this.paginatorForLibrary.pageIndex == 0 ? i + 1: 1 + i + this.paginatorForLibrary.pageIndex * this.paginatorForLibrary.pageSize
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_name" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_desc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_desc }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_author">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+            <td mat-cell *matCellDef="let element">{{ element.book_author }}</td>
+          </ng-container>     
+          <ng-container matColumnDef="publisher_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Publisher</th>
+            <td mat-cell *matCellDef="let element">{{ element.publisher_name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="book_image">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book Image</th>
+            <td mat-cell *matCellDef="let element"><img class="img-lg rounded-circle" lazyLoad="{{baseUrl}}{{element.book_image}}" style="width:200px;height:200px;"></td>
+          </ng-container> 
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="goToView(element.id)">
+                <mat-icon class="edit-button">edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteLibrary(element.id)">
+                <mat-icon class="delete-button">delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsForLibrary;  sticky: true;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsForLibrary"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No data matching the filter "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+        <mat-paginator
+          #paginatorForLibrary="matPaginator"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+      </div>
+  </form>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,16 @@
+.fas  {
+	top:100px;
+	border-top-right-radius: 100px;
+	bottom: 10px;
+	font-size: 40px;
+	margin-left: 20px;
+}
+
+.collapse{
+	font-weight: 500;
+
+}
+.navbar {
+	display: flex;
+	justify-content: space-around;
+   }
